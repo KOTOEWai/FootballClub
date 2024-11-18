@@ -5,10 +5,10 @@ exports.createBlog = async (req, res) => {
     try {
         const imageUrlRegex = /\.(jpeg|jpg|gif|png|webp|svg)$/i;
         const { title, content, tags,author, imageUrl } = req.body;
-        if(!title & !content & !tags & !author & !imageUrl){
+        if(!title || !content || !tags || !author || !imageUrl){
             return res.status(400).json({ message: "Please fill in all fields" });
         }
-        if(!imageUrlRegex.test(title)){
+        if(!imageUrlRegex.test(imageUrl)){
             return res.status(404).json({ message: "image url not found" });
         }
         const blog = new Blog({ title, content, tags,author, imageUrl });

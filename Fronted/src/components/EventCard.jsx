@@ -13,6 +13,7 @@ const EventCard = ({ event }) => {
     transition={{ duration: 0.5, ease: 'easeOut' }}
     whileHover={{ scale: 1.05 }}>
       <div className="bg-blue-900 p-4 flex items-center justify-between text-white rounded-t-lg">
+
         <div className="flex items-center space-x-2">
           <img src={event.team1Logo} alt={event.team1} className="w-8 h-8" />
           <span>{event.team1}</span>
@@ -23,7 +24,8 @@ const EventCard = ({ event }) => {
   className="w-8 h-8 mx-3" 
   alt="League Icon"
    />
-        <div className="flex items-center space-x-2">
+   
+     <div className="flex items-center space-x-2">
           <img src={event.team2Logo} alt={event.team2} className="w-8 h-8" />
           <span>{event.team2}</span>
         </div>

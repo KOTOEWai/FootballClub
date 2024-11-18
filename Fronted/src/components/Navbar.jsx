@@ -2,6 +2,7 @@ import { useState } from 'react';
 import logo from '../image/2f088356071ac23320b1445c8887adbd.jpg';
 import { motion } from "motion/react";
 import { Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
@@ -41,8 +42,10 @@ const Navbar = () => {
 
         </div>
         
-        <div className='ml-auto flex items-center w-[20%]'>
-          <a href="/login">Login</a>
+        <div className='ml-auto flex items-center w-[20%] gap-4'>
+          <Link to="/login">Login</Link>
+          <Link to="/signUp">SignUp</Link>
+        
         </div>
       </nav>
       <Outlet/>

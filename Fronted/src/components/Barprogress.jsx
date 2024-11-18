@@ -65,11 +65,8 @@ const ProgressBar = () => {
       </div>
 
       {/* Achievement and Progress Bar Section */}
-      <div className="flex flex-col items-center ">
-
-    
-
-       <motion.ul
+ <div className="flex flex-col items-center ">
+ <motion.ul
   className="grid grid-cols-2 gap-4 mt-6 w-full"
   initial={{ opacity: 0, y: 20 }}
   animate={{ opacity: 1, y: 0 }}
@@ -83,12 +80,12 @@ const ProgressBar = () => {
       transition={{ duration: 0.4, delay: index * 0.2 }}
       className="flex flex-col items-start p-3 border border-gray-300 rounded-lg space-y-2"
     >
-       <div className="flex items-center gap-3">
-                <div className="text-2xl text-blue-600">{achievement.icon}</div>
-                <div className="flex flex-col">
-                  <span className="text-xl font-bold text-gray-900">
+    <div className="flex items-center gap-3">
+      <div className="text-2xl text-blue-600">{achievement.icon}</div>
+          <div className="flex flex-col">
+                <span className="text-xl font-bold text-gray-900">
                     {Math.round(achievement.base * (mappedProgress / 100))}
-                  </span>
+                 </span>
                   <span className="text-gray-600">{achievement.title}</span>
                 </div>
               </div>
@@ -105,11 +102,10 @@ const ProgressBar = () => {
               </div>
     </motion.li>
   ))}
-</motion.ul>
+       </motion.ul>
 
-        
-        <span className="text-gray-700 text-lg">{progress}</span>
 
+<span className="text-gray-700 text-lg">{progress}</span>
         {/* Slider to Control Main Progress */}
         <motion.input
   type="range"

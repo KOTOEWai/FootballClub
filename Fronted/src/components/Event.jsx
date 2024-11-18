@@ -54,10 +54,7 @@ const NextEvents = () => {
   const handleCheckboxChange = (sport, team) => {
     setSelectedTeams((prev) => ({
       ...prev,
-      [sport]: {
-        ...prev[sport],
-        [team]: !prev[sport][team],
-      },
+      [sport]: {  ...prev[sport] ,  [team]: !prev[sport][team] },
     }));
   };
   

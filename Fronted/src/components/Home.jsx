@@ -16,6 +16,7 @@ import thirdkit from '../image/thirdkit.webp'
 import training from '../image/trainingkit.webp'
 import travel from '../image/travel kit.webp'
 import Event from './Event'
+import PlayerCard from './playercard'
 
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -145,13 +146,12 @@ function Home() {
         ))}
       </div>
     </div>
+    
   <Event/>
   <BarProgress/>
 
 
-  
   <div className="container mx-auto">
-
   <Swiper
   modules={[Navigation,Autoplay]}
    // Register the Navigation module here
@@ -183,10 +183,16 @@ function Home() {
     </SwiperSlide>
   ))}
 </Swiper>
-
-
     </div>
+<div>
+<div className="bg-slate-800 mx-auto max-w-[1200px] px-4 py-4 rounded">
+  <h1 className="text-center text-white text-2xl font-bold">
+    Men&apos;s Top Scorers
+  </h1>
+</div>
 
+ <PlayerCard/>
+ </div>
     </>
   );
 }

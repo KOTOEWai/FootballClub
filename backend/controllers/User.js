@@ -6,7 +6,7 @@ exports.SignUp = async (req, res) => {
     try {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\S]{8,}$/;//+
-        const { name, email, password } = req.body;
+        const { name, email, password , role } = req.body;
         // Check if all required fields are provided
         if (!name || !email || !password) {
             return res.status(400).json({ message: "All fields are required" });
@@ -27,12 +27,12 @@ exports.SignUp = async (req, res) => {
         // Hash the password before saving
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = new User({ name, email, password: hashedPassword });
+        const newUser = new User({ name, email, password: hashedPassword , role });
         const savedUser = await newUser.save();
 
         res.status(201).json({ 
             message: "User registered successfully", 
-            user: { id: savedUser._id, name: savedUser.name, email: savedUser.email } 
+            user: { id: savedUser._id, name: savedUser.name, email: savedUser.email , role: savedUser.role} 
         });
     } catch (err) {
         res.status(500).json({ message: err.message });
