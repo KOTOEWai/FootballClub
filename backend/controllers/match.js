@@ -1,18 +1,24 @@
 const Match = require('../models/match');
 
+
+
 exports.createMatch = async (req, res) => {
   try {
-    const imageUrlRegex = /\.(jpeg|jpg|gif|png|webp|svg)$/i;
-    const { matchDate, stadium, homeTeam, awayTeam, teamlogo, score, referees, location, matchType } = req.body;
+    console.log("Files:", req.files);
+    console.log("Body:", req.body);
+
+    // Extract uploaded files
+    const teamlogo = req.files?.teamlogo?.map((file) => file.filename ) || [];
 
     // Validate required fields
-    if (!matchDate || !stadium || !homeTeam || !awayTeam || !teamlogo || !referees || !location || !matchType) {
+    const { matchDate, stadium, homeTeam, awayTeam, referees, location,homeTeamscore , awayTeamscore, matchType } = req.body;
+
+    if (!matchDate || !stadium || !homeTeam || !awayTeam || !referees || !location || !matchType || !homeTeamscore || !awayTeamscore) {
       return res.status(400).json({ message: "All fields are required." });
     }
 
-    // Validate team logos
-    if (!teamlogo.every((url) => imageUrlRegex.test(url))) {
-      return res.status(400).json({ message: "One or more team logos are invalid image URLs." });
+    if (!teamlogo.length) {
+      return res.status(400).json({ message: "At least one team logo is required." });
     }
 
     // Create match
@@ -22,9 +28,10 @@ exports.createMatch = async (req, res) => {
       homeTeam,
       awayTeam,
       teamlogo,
-      score,
       referees,
       location,
+      homeTeamscore ,
+      awayTeamscore,
       matchType,
     });
 
@@ -34,6 +41,7 @@ exports.createMatch = async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+
 
 exports.getAllMatches = async (req, res) => {
     try {
@@ -63,16 +71,20 @@ exports.getAllMatches = async (req, res) => {
   exports.updateMatch = async (req, res) => {
     try {
       const { id } = req.params;
-      const updatedData = req.body;
-  
-      // Validate team logos if present
-      const imageUrlRegex = /\.(jpeg|jpg|gif|png|webp|svg)$/i;
-      if (updatedData.teamlogo && !updatedData.teamlogo.every((url) => imageUrlRegex.test(url))) {
-        return res.status(400).json({ message: "Invalid image URL format for one or more team logos." });
+      // Handle file uploads if present
+      const uploadedLogos = req.files?.teamlogo?.map((file) => file.filename) || [];
+      if (uploadedLogos.length > 0) {
+        req.body.teamlogo = uploadedLogos; // Add uploaded files to the update data
       }
   
+      // Validate incoming data (optional)
+      const allowedFields = ['matchDate', 'stadium', 'homeTeam', 'awayTeam', 'teamlogo', 'referees', 'location', 'homeTeamscore', 'awayTeamscore', 'matchType'];
+      const sanitizedData = Object.keys(req.body)
+        .filter((key) => allowedFields.includes(key))
+        .reduce((obj, key) => { obj[key] = req.body[key];
+          return obj; }, {});
       // Update the match
-      const updatedMatch = await Match.findByIdAndUpdate(id, updatedData, { new: true });
+      const updatedMatch = await Match.findByIdAndUpdate(id, sanitizedData, { new: true });
   
       if (!updatedMatch) {
         return res.status(404).json({ message: "Match not found" });
@@ -80,9 +92,11 @@ exports.getAllMatches = async (req, res) => {
   
       res.status(200).json({ message: "Match updated successfully!", match: updatedMatch });
     } catch (err) {
+      console.error("Error in updateMatch:", err);
       res.status(500).json({ message: "Server error", error: err.message });
     }
   };
+  
   
   
   exports.deleteMatch = async (req, res) => {

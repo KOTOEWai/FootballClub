@@ -20,22 +20,26 @@ const MatchSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    teamlogo: {
-      type: [String], // Specifies an array of strings
-     
-    },    
-    score: {
-      homeTeam: { type: Number, default: 0 },
-      awayTeam: { type: Number, default: 0 },
+    teamlogo:[String]
+    ,    
+    homeTeamscore: {
+    type: Number, 
+    default: 0 },
+
+    awayTeamscore: {
+    type: Number, 
+    default: 0 },
+
+    referees:
+    {
+       type: String
     },
-    referees:[{ type: String }],
     location: {
       type: String,
       required: true,
     },
     matchType: {
-        enum: ["FIFA Club World Cup", "UEFA", "Spanish Clup", "European Cups", "European Super Cup", "LaLiga", "Spanish Super Cup"],
-        default: ["LaLiga"]
+         type: String
     },
     createdAt: {
       type: Date,

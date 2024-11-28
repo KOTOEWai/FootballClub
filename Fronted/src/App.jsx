@@ -1,37 +1,26 @@
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Home from './components/Home';
-import Login from './components/login';
-import SignUp from './components/signUp';
+/* eslint-disable react/jsx-no-undef */
+
+import React from 'react';
 import 'flowbite/dist/flowbite.min.css';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 
-function Layout({ children }) {
-  const location = useLocation();
+import {  AuthProvider } from "./components/AuthContext.jsx"
 
-  // Paths where Navbar and Footer should NOT be displayed
-  const hideLayoutPaths = ["/login","/Signup"];
+// Define your routes for RouterProvider
+import Routes from './routes/index.jsx'
 
+
+
+
+function App() {
+ 
   return (
-    <>
-      {!hideLayoutPaths.includes(location.pathname) && <Navbar />}
-      <main>{children}</main>
-      {!hideLayoutPaths.includes(location.pathname) && <Footer />}
-    </>
+    <React.StrictMode>
+    <AuthProvider>
+        <Routes/>
+    </AuthProvider>
+    </React.StrictMode>
   );
 }
 
-export default function App() {
-  return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/Signup" element={<SignUp />} />
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </Layout>
-    </Router>
-  );
-}
+export default App;

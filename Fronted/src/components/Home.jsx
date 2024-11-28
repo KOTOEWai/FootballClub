@@ -185,7 +185,7 @@ function Home() {
 </Swiper>
     </div>
 <div>
-<div className="bg-slate-800 mx-auto max-w-[1200px] px-4 py-4 rounded">
+<div className="bg-slate-800 mx-auto max-w-[1200px] px-4 py-4 rounded mt-7">
   <h1 className="text-center text-white text-2xl font-bold">
     Men&apos;s Top Scorers
   </h1>

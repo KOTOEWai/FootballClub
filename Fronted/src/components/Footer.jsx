@@ -7,7 +7,7 @@ export default function Footer() {
       <footer className="bg-white text-gray-700 py-8">
         {/* Links Section */}
         <div className="container mx-auto px-6 lg:px-16">
-          <div className="grid grid-cols-5 md:grid-cols-5 gap-4 md:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-9  md:gap-8">
             {/* Column 1 */}
             <div>
               <h4 className="font-bold text-lg mb-4">Football</h4>
@@ -19,13 +19,7 @@ export default function Footer() {
             </div>
   
             {/* Column 2 */}
-            <div>
-              <h4 className="font-bold text-lg mb-4">Basketball</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:underline">Basketball First Team</a></li>
-              </ul>
-            </div>
-  
+          
             {/* Column 3 */}
             <div>
               <h4 className="font-bold text-lg mb-4">The Club</h4>

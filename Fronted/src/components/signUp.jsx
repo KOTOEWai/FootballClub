@@ -1,13 +1,15 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import axios from "axios"; // For making HTTP requests
-
+import { useNavigate} from "react-router-dom"
 export default function SignUp() {
+  const navigate = useNavigate(); // For navigation using React Router
   // State to store form inputs
-  const [formData, setFormData] = useState({
+  const [formdata, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+
   });
 
   const [error, setError] = useState(""); // To handle errors
@@ -16,23 +18,39 @@ export default function SignUp() {
   // Handle input changes
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
+    setFormData({ ...formdata, [id]: value });
   };
-
+const[proImg,setProImg] = useState([]);
+  const handlefileChange = (e) => {
+    setProImg([...e.target.files]);
+  };
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const data = new FormData();
+
+   
+    Object.keys(formdata).forEach((key) => data.append(key, formdata[key]));
+
+    proImg.forEach((logo) => data.append("profile_img", logo));
 
     try {
       // Send POST request to backend
-      const response = await axios.post("http://localhost:3000/user/SignUp", formData);
+      const response = await axios.post("http://localhost:3000/user/SignUp",data,{
+        withCredentials: true,
+      }
+      );
 
-      if (response.status === 201) {
+      if (response.status >= 200 && response.status < 300) {
+  
+        navigate('/login')
         setSuccess(true); // Show success message
         setError(""); // Clear any previous error
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong");
+
+      setError(err.response?.data?.message );
+
     }
   };
 
@@ -49,13 +67,27 @@ export default function SignUp() {
         {success && <p className="text-green-500 text-center">Sign up successful!</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
+          <label htmlFor="userimg" className="block text-sm font-medium text-gray-700 mb-2">
+              ProfileImage
+            </label>
+            <input
+              type="file"
+              id="userimg"
+              onChange={handlefileChange}
+              className="w-full px-3 py-2 border rounded-lg"
+              placeholder="Enter your username"
+              multiple
+              required
+            />
+          </div>
+          <div className="mb-4">
             <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
               Username
             </label>
             <input
               type="text"
               id="name"
-              value={formData.name}
+              value={formdata.name}
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-lg"
               placeholder="Enter your username"
@@ -69,7 +101,7 @@ export default function SignUp() {
             <input
               type="email"
               id="email"
-              value={formData.email}
+              value={formdata.email}
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-lg"
               placeholder="Enter your email"
@@ -83,7 +115,7 @@ export default function SignUp() {
             <input
               type="password"
               id="password"
-              value={formData.password}
+              value={formdata.password}
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-lg"
               placeholder="Enter your password"

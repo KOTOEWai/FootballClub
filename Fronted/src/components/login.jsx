@@ -1,11 +1,14 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import googleicon from '../image/google.png'
 import apple from '../image/apple.png'
 import { motion } from 'framer-motion';
-import { useState } from "react";
+import { useState,useContext } from "react";
+
+import { AuthContext } from './AuthContext';
+
 import axios from "axios";
 export default function Login() {
-
+   const navigate = useNavigate();
   const [ formData, setFormData] = useState({
     email: '',
     password: '',
@@ -19,17 +22,23 @@ export default function Login() {
    
   }
 
+  const { dispatch } = useContext(AuthContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null); // Reset error state
     try {
-      const response = await axios.post('http://localhost:3000/user/SignIn', formData);
+      const response = await axios.post('http://localhost:3000/user/SignIn', formData,{
+        withCredentials:true 
+      });
       if (response.status >= 200 && response.status < 300) {
         setSuccess(true);
+        navigate('/')
+        dispatch({ type: 'LOGIN', payload: response.data.user });
       }
     } catch (err) {
-      setError(err.response?.data?.message || "An unexpected error occurred.");
+      console.log(err);
+      setError(err.response?.data?.message);
     }
   };
   
