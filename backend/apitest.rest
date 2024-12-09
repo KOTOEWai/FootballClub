@@ -1,9 +1,11 @@
-POST   http://localhost:3000/user/SignUp
+POST   http://localhost:3000/api/products/createProduct
+Content-Type: application/json
 
-{
-  "name": "AdminUser",
-  "email": "admin123@email.com",
-  "role": "admin", // Role set to 'admin'
-  "password": "SecurePassword123@",
-  "profile_img": ["1732624107084-images (3).jpg"]
-}
+ {
+    "name": "Team Jersey - Home",
+    "category": "Jerseys",
+    "price": 79.99,
+    "description": "Official home jersey for the 2023 season, featuring lightweight fabric for comfort and performance.",
+     "stockQuantity" : "3",
+    "img": "https://example.com/images/home-jersey.jpg"
+  }

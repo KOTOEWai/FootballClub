@@ -1,6 +1,7 @@
 
 const Player = require('../models/players')
-
+const path = require('path');
+const removefiles = require('../helper/file')
 const paseNasted = (data)=>{
   const result = {};
   for (const key in data){
@@ -41,7 +42,7 @@ exports.createplayer =  async (req, res) => {
        res.status(201).json({ message: 'Player created successfully', player: savedPlayer });
     } catch (error) {
       if(error.code ===11000){
-        res.status(400).json({ message: 'Player with this name already exists' });
+        res.status(400).json({ message: 'Player already exists' });
       }
         console.error(error);
         res.status(500).json({ message: 'Server error', error: error.message });
@@ -58,6 +59,7 @@ exports.createplayer =  async (req, res) => {
   };
 
   exports.getPlayerById = async (req, res) => {
+    console.log(req.body)
     try {
       const { id } = req.params;
       const player = await Player.findById(id);
@@ -83,7 +85,12 @@ exports.createplayer =  async (req, res) => {
         const profileImage = req.files?.profileImage?.map((file)=>file.filename) || [];
         req.body.profileImage = profileImage;
       }
-
+      const currentPlayer = await Player.findById(id);
+      if (!currentPlayer) {
+        return res.status(404).json({ message: "Player not found" });
+       }
+      await Promise.all(currentPlayer.profileImage.map(logo => removefiles(path.join(__dirname, '/../uploads', logo))));
+      
       const updatedPlayer = await Player.findByIdAndUpdate(id,req.body , {
         new: true,
         runValidators: true,
@@ -108,7 +115,7 @@ exports.createplayer =  async (req, res) => {
       if (!deletedPlayer) {
         return res.status(404).json({ message: "Player not found" });
       }
-
+      await Promise.all(deletedPlayer.profileImage.map(logo => removefiles(path.join(__dirname, '/../uploads', logo))));
       res.status(200).json({
         message: "Player deleted successfully!",
         player: deletedPlayer,

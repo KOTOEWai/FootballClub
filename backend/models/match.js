@@ -7,6 +7,10 @@ const MatchSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    matchTime: {
+      type: String,
+      required: true,
+    },
     stadium: {
       type: String,
       required: true,

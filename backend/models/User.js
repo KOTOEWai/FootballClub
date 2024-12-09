@@ -3,14 +3,15 @@ let profile_imgs_name_list = ["Garfield", "Tinkerbell", "Annie", "Loki", "Cleo",
 let profile_imgs_collections_list = ["notionists-neutral", "adventurer-neutral", "fun-emoji"];
 
 const User = new mongoose.Schema({
+       googleId: { type: String, required: true, unique: true },
        name: {type: String, required: true},
        email: {type: String, required: true, unique: true},
        role: {
               type: String,
               enum: ["admin", "coach", "player", "staff", "fan"],
               default: "fan",
-            },
-       password: {type: String, required: true},
+              },
+       password: {type: String, required: false},
 
        profile_img: {
               type: [String],

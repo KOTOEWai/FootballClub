@@ -48,14 +48,12 @@ const[proImg,setProImg] = useState([]);
         setError(""); // Clear any previous error
       }
     } catch (err) {
-
       setError(err.response?.data?.message );
-
     }
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 mt-10">
       <motion.div
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}

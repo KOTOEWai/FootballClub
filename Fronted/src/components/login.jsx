@@ -3,7 +3,7 @@ import googleicon from '../image/google.png'
 import apple from '../image/apple.png'
 import { motion } from 'framer-motion';
 import { useState,useContext } from "react";
-
+import { GoogleLogin,GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthContext } from './AuthContext';
 
 import axios from "axios";
@@ -41,10 +41,12 @@ export default function Login() {
       setError(err.response?.data?.message);
     }
   };
-  
+
+
+ 
   return (
     <div 
-    className="min-h-screen flex justify-center items-center">
+    className="min-h-screen flex justify-center items-center mt-1">
          <motion.div
          initial={{ width: 0, scale: 1.5 }}
          animate={{ width: 500 , scale: 1 }}
@@ -84,16 +86,11 @@ export default function Login() {
         </div>
 
           <div>
-
-          <div className="relative">
-          <img src={googleicon} className="w-8 h-8 top-6 left-10 absolute" alt="" />
-          <button className="w-full mt-3    p-3 rounded-lg text-blue-600 border border-blue-700 font-bold text-xl"  type="submit">
-           Continue with Google</button>
-          </div>
-         
+        
 
           <div className="relative">
           <img src={apple} className="w-8 h-8 top-6 left-10 absolute" alt="" />
+
           <button className="w-full mt-3    p-3 rounded-lg text-blue-600 border border-blue-700 font-bold text-xl"  type="submit">
            Continue with Apple</button>
           </div>

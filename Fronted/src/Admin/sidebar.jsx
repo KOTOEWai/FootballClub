@@ -79,14 +79,13 @@ export default function Sidebar() {
         >
           Match Management
         </NavLink>
-
         <NavLink
-          to="/admin/tickets"
+          to= '/admin/tickets/ You need to insert Match ID'
           className={({ isActive }) =>
             `p-2 rounded block hover:bg-gray-700 ${
               isActive ? 'bg-gray-700' : ''
             }`
-          }
+   }
         >
           Ticket Management
         </NavLink>
@@ -99,6 +98,17 @@ export default function Sidebar() {
           }
         >
           User Management
+        </NavLink>
+
+        <NavLink
+          to="/admin/product"
+          className={({ isActive }) =>
+            `p-2 rounded block hover:bg-gray-700 ${
+              isActive ? 'bg-gray-700' : ''
+            }`
+          }
+        >
+          Product Management
         </NavLink>
          </div>
       

@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-duplicate-props */
 
 import image1  from '../image/image1.webp'
 import image2  from '../image/image2.webp'
@@ -17,8 +16,6 @@ import training from '../image/trainingkit.webp'
 import travel from '../image/travel kit.webp'
 import Event from './Event'
 import PlayerCard from './playercard'
-
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules"; // Correct path for modules
 import "swiper/css";
@@ -93,7 +90,7 @@ const items = [
 function Home() {
   return (
     <>
-    <div className="flex justify-center items-center  mt-4 ">
+    <div className="flex justify-center items-center   mt-3">
       <div className=" max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-2 bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="flex justify-center items-center">
           <motion.img 
@@ -174,8 +171,8 @@ function Home() {
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className=" me-7 bg-white rounded-lg shadow-lg">
-        <img src={item.image} alt={item.title} className="rounded-lg w-full" />
-        <h3 className="text-xl font-semibold mt-4">{item.title}</h3>
+        <img src={item.image} alt={item.title} className=" w-full" />
+        <h3 className="text-xl font-semibold mt-4 p-4 rounded-t-2xl">{item.title}</h3>
         <button className="mt-4 px-4 mb-4 ms-2 py-2 bg-blue-600 text-white rounded-lg">
           {item.buttonText}
         </button>

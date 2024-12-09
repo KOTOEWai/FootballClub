@@ -13,6 +13,7 @@ const [open , setOpen] = useState(false)
 
  const [formData, setFormData] = useState({
   matchDate: "",
+  matchTime: "",
   stadium: "",
   homeTeam: "",
   awayTeam: "",
@@ -157,6 +158,20 @@ const deletematch = async (id) =>{
                   required
                     />
                 </div>
+
+                <div>
+                  <label htmlFor="matchtime" className="block text-sm font-medium text-gray-700">Match Time</label>
+                  <input
+                  id='matchtime'
+                 type= 'time'
+                 name="matchTime"
+               value = {id ? `${formData.matchTime}` : null}
+                onChange={handleInputChange}
+                 className="mt-1 block w-full p-2 border border-gray-300 rounded"
+                  required
+                    />
+                </div>
+
                 <div>
                   <label htmlFor="logo" className="block text-sm font-medium text-gray-700">Home Team Logo</label>
                   <input
@@ -317,13 +332,13 @@ const deletematch = async (id) =>{
               No Logo
             </div>
           )}
-          <p className="font-bold text-2xl">{event.homeTeam}</p>
+          <p className="font-bold text-xl ">{event.homeTeam}</p>
         </div>
            
-           Vs
+         <p className='text-center'>Vs</p>
           
         <div className='flex items-center space-x-2 p-5'>
-        <p className="font-bold text-2xl">{event.awayTeam}</p>
+        <p className="font-bold text-xl">{event.awayTeam}</p>
         {event.teamlogo && event.teamlogo.length > 1 ? (
           <img
             src={`http://localhost:3000/uploads/${event.teamlogo[1]}`}
@@ -344,6 +359,11 @@ const deletematch = async (id) =>{
         <div className='flex justify-between space-x-8 p-2 bg-slate-300 rounded-lg shadow-lg m-2'>
         <p>Match Date</p>
         <p className="text-gray-800 font-semibold">{event.matchDate}</p>
+        </div>
+
+        <div className='flex justify-between space-x-8 p-2 bg-slate-300 rounded-lg shadow-lg m-2'>
+        <p>Match Time</p>
+        <p className="text-gray-800 font-semibold">{event.matchTime}</p>
         </div>
 
         <div className='flex justify-between space-x-8 p-2 bg-slate-300 rounded-lg shadow-lg m-2'>
@@ -379,6 +399,12 @@ const deletematch = async (id) =>{
            to={`/admin/matches/${event._id}`}
         >
           Edit
+        </Link>
+        <Link
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+           to={`/admin/tickets/${event._id}`}
+        >
+          Create Ticket
         </Link>
       </div>
     </motion.div>

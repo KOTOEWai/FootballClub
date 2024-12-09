@@ -1,37 +1,38 @@
 
-import salah from "../image/mohamed-salah-headshot-v3-2024.webp";
-
+import mbape from '../image/mbappe.webp'
+import vini from '../image/Vini Jr.webp'
+import balle from '../image/bellingham.webp'
 const PlayerCardList = () => {
   const players = [
     {
-      number: "11",
-      name: "Mohamed Salah",
+      number: "9",
+      name: "Mbappe",
       position: "Forward",
       season: "Season 2024-25",
       timePlayed: 1347,
       appearances: 17,
       goals: 10,
-      image: salah, // Importing Salah's image
+      image: mbape, // Importing Salah's image
     },
     {
       number: "7",
-      name: "Luis Diaz",
+      name: "Vini Jr",
       position: "Forward",
       season: "Season 2024-25",
       timePlayed: 953,
       appearances: 16,
-      goals: 9,
-      image: "https://via.placeholder.com/100", // Replace with actual image URL
+      goals: 7,
+      image: vini, // Replace with actual image URL
     },
     {
-      number: "18",
-      name: "Cody Gakpo",
+      number: "5",
+      name: "Bellingham",
       position: "Forward",
       season: "Season 2024-25",
       timePlayed: 832,
       appearances: 17,
-      goals: 6,
-      image: "https://via.placeholder.com/100", // Replace with actual image URL
+      goals: 10,
+      image: balle, // Replace with actual image URL
     },
   ];
 
@@ -43,7 +44,7 @@ const PlayerCardList = () => {
           key={index}
           className=" sm:w-[45%] md:w-[30%] lg:w-[22%] flex-grow "
         >
-          <div className="bg-white shadow-lg rounded-lg overflow-hidden border">
+          <div className="bg-slate-200 shadow-lg rounded-lg overflow-hidden border">
             <div className="flex items-center px-4 py-4">
               <span className="text-4xl font-bold text-gray-800">
                 {player.number}
@@ -51,7 +52,7 @@ const PlayerCardList = () => {
               <img
                 src={player.image}
                 alt={player.name}
-                className="w-20 h-20 rounded-full object-cover ml-auto"
+                className="w-20 h-24 rounded-full object-cover ml-auto"
               />
             </div>
             <div className="px-4 py-2">

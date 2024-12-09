@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Home from '../components/Home';
@@ -8,24 +8,30 @@ import { RouterProvider, createBrowserRouter, Outlet, Navigate } from 'react-rou
 import Tickets from '../components/Tickets';
 import AdminPanel from '../Admin/sidebar';
 import Dashboard from '../Admin/dashboard';
-import Match from '../Admin/match';
-import Test from '../Admin/test';
-import Player from '../Admin/player';
+import AdminMatch from '../Admin/match';
+import AdminPlayer from '../Admin/player';
 import { AuthContext } from '../components/AuthContext';
 import User from '../Admin/users';
-
-
+import Ticketdetails from '../components/ticketDetail'
+import AdminTickets from '../Admin/tickets'
+import { ProtectAdmin } from '../components/adminAuth';
+import { MatchProvider } from '../components/MatchContext';
+import Checkout from '../components/Cart'
+import Player from '../components/Player'
+import Product from '../Admin/product'
+import PlayerDetail from '../components/PlayerDetail'
+import Store from '../components/Store'
 function Index() {
   const { user } = useContext(AuthContext);
   const routes = [
     {
       path: "/",
       element: (
-        <>
+        <MatchProvider>
           <Navbar />
           <Outlet /> {/* Required for rendering child routes */}
           <Footer />
-        </>
+        </MatchProvider>
       ),
       children: [
         {
@@ -34,7 +40,7 @@ function Index() {
         },
         {
           path: "/login",
-          element: !user ? <Login /> : <Navigate to={'/'} />,
+          element: <Login />,
         },
         {
           path: "/signup",
@@ -44,42 +50,67 @@ function Index() {
           path: "/ticket",
           element: user ? <Tickets /> : <Navigate to={'/signup'} />,
         },
+        {
+          path: "/ticketDetails/:id",
+          element: user ? <Ticketdetails /> : <Navigate to={'/signup'} />,
+        },
+        {
+          path: "/checkoutDetails/:id",
+          element: <Checkout />,
+        },
+        {
+          path: "/player",
+          element: <Player/>,
+        },
+        {
+          path: "/playerDetails/:id",
+          element: <PlayerDetail/>,
+        },
+        {
+          path: "/Store",
+          element: <Store/>,
+        }
       ],
     },
     {
       path: "/admin",
-      element: <AdminPanel />, 
+      element: <ProtectAdmin><AdminPanel /></ProtectAdmin>,
       children: [
         {
           path: "dashboard",
-          element: <Dashboard />  // Protect this route
+          element: <Dashboard />,
         },
         {
           path: "matches",
-          element:<Match />, // Protect this route
+          element: <AdminMatch />,
         },
         {
           path: "matches/:id",
-          element:<Match />, // Protect this route
-        },
-        {
-          path: "test",
-          element: <Test />, // Protect this route
+          element: <AdminMatch />,
         },
         {
           path: "players",
-          element:<Player />, // Protect this route
+          element: <AdminPlayer />,
         },
         {
           path: "players/:id",
-          element: <Player />, // Protect this route
+          element: <AdminPlayer />,
         },
         {
           path: "users",
-          element: <User  />, // Protect this route
+          element: <User />,
+        },
+        {
+          path: "tickets/:id",
+          element: <AdminTickets />,
+        },
+        {
+          path: "product",
+          element: <Product />,
         }
       ],
     },
+  
   ];
 
   const router = createBrowserRouter(routes, {
@@ -88,9 +119,7 @@ function Index() {
     },
   });
 
-  return (
-    <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default Index;

@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-no-undef */
+
 
 import React from 'react';
 import 'flowbite/dist/flowbite.min.css';
@@ -8,9 +8,6 @@ import {  AuthProvider } from "./components/AuthContext.jsx"
 
 // Define your routes for RouterProvider
 import Routes from './routes/index.jsx'
-
-
-
 
 function App() {
  

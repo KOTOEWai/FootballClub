@@ -178,7 +178,7 @@ const NextEvents = () => {
         </div>
       )}
 
-      <div className="flex flex-wrap gap-6 justify-center">
+      <div className="flex flex-wrap gap-2 justify-center">
         {events.map((event, index) => (
           <EventCard key={index} event={event} />
         ))}
